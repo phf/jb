@@ -20,6 +20,23 @@ Bzzz! Oh, I would like to apologize for taking the whole bee metaphor a little
 In particular, I'd love for folks with more Java experience to add support for
 established Java build tools.
 
+## Usage
+
+If `StringAppend.class` contains a bunch of benchmarks, here's how you run
+them (provided `jaybee` is suitably aliased):
+
+```
+$ jaybee StringAppend
+       string	      1000	   1042721 ns/op	   2.77 MB/s	    159592 B/op
+ stringBuffer	     30000	     40549 ns/op	  71.27 MB/s	      5313 B/op
+stringBuilder	     50000	     24185 ns/op	 119.50 MB/s	      1545 B/op
+```
+
+You get (a) the number of times the benchmark was run, (b) the time it took
+per iteration, (c) the amount of data processed per second, and (d) the
+number of bytes allocated per iteration. (That last number can be rather
+flakey because the garbage collector doesn't seem to be overly deterministic.)
+
 ## Credits / Inspiration
 
 Original Go Documentation:
