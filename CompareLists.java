@@ -11,16 +11,6 @@ import java.util.Random;
  * often the wrong choice if we care for performance.
  */
 public final class CompareLists {
-    private interface Factory {
-        List<String> make();
-    }
-    private static Factory arrayListFactory = new Factory() {
-        public List<String> make() { return new ArrayList<String>(); }
-    };
-    private static Factory linkedListFactory = new Factory() {
-        public List<String> make() { return new LinkedList<String>(); }
-    };
-
     private static final int SIZE = 1000;
     private static final Random r = new Random();
 
@@ -64,20 +54,20 @@ public final class CompareLists {
      */
     @Bench
     public static void insertArrayList(Bee b) {
-        List<String> l = arrayListFactory.make();
+        List<String> l = new ArrayList<>();
         insertMany(l, b);
     }
 
     @Bench
     public static void insertLinkedList(Bee b) {
-        List<String> l = linkedListFactory.make();
+        List<String> l = new LinkedList<>();
         insertMany(l, b);
     }
 
     @Bench
     public static void linearArrayList(Bee b) {
         b.stop();
-        List<String> l = arrayListFactory.make();
+        List<String> l = new ArrayList<>();
         insert(l);
         b.start();
         linearMany(l, b);
@@ -86,7 +76,7 @@ public final class CompareLists {
     @Bench
     public static void linearLinkedList(Bee b) {
         b.stop();
-        List<String> l = linkedListFactory.make();
+        List<String> l = new LinkedList<>();
         insert(l);
         b.start();
         linearMany(l, b);
@@ -95,7 +85,7 @@ public final class CompareLists {
     @Bench
     public static void randomArrayList(Bee b) {
         b.stop();
-        List<String> l = arrayListFactory.make();
+        List<String> l = new ArrayList<>();
         insert(l);
         b.start();
         randomMany(l, b);
@@ -104,7 +94,7 @@ public final class CompareLists {
     @Bench
     public static void randomLinkedList(Bee b) {
         b.stop();
-        List<String> l = linkedListFactory.make();
+        List<String> l = new LinkedList<>();
         insert(l);
         b.start();
         randomMany(l, b);
