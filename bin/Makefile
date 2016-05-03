@@ -11,7 +11,7 @@ Classes.txt:
 
 jaybee: jaybee.jar
 	cat Executable.txt >$@
-	uuencode $^ <$^ >>$@
+	uuencode --base64 $^ <$^ >>$@
 	chmod +x $@
 
 clean:
