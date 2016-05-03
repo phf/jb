@@ -1,0 +1,5 @@
+#!/bin/sh
+uudecode -o /tmp/jaybee.jar $0
+java -jar /tmp/jaybee.jar $*
+exit 0
+# the jar file goes here
