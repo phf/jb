@@ -6,7 +6,7 @@ all: $(ALL)
 jaybee.jar: Classes.txt Manifest.txt
 	jar cfm $@ Manifest.txt @Classes.txt
 
-Classes.txt:
+Classes.txt: com/github/phf/jb/*.class
 	find com -name '*.class' -print >Classes.txt
 
 jaybee: jaybee.jar
