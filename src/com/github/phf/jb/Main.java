@@ -6,6 +6,10 @@ import java.lang.reflect.Method;
  * The jb tool to run benchmarks.
  */
 public final class Main {
+    private static boolean verbose;
+    private static String time;
+    private static String pattern;
+
     private Main() {}
 
     private static void runAllBenchmarks(Class<?> c) {
@@ -36,6 +40,12 @@ public final class Main {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
+        Flags f = new Flags();
+        f.bool("verbose", (Boolean b) -> Main.verbose = b);
+        f.string("time", (String t) -> Main.time = t);
+        f.string("pattern", (String p) -> Main.pattern = p);
+        args = f.parse(args);
+
         if (args.length < 1) {
             usage();
         }
