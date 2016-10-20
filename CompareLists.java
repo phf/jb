@@ -49,6 +49,14 @@ public final class CompareLists {
         }
     }
 
+    private static void linearManyIter(List<String> l, Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (String s : l) {
+                String t = s;
+            }
+        }
+    }
+
     /*
      * Individual benchmarks.
      */
@@ -98,5 +106,23 @@ public final class CompareLists {
         insert(l);
         b.start();
         randomMany(l, b);
+    }
+
+    @Bench
+    public static void linearArrayListIter(Bee b) {
+        b.stop();
+        List<String> l = new ArrayList<>();
+        insert(l);
+        b.start();
+        linearManyIter(l, b);
+    }
+
+    @Bench
+    public static void linearLinkedListIter(Bee b) {
+        b.stop();
+        List<String> l = new LinkedList<>();
+        insert(l);
+        b.start();
+        linearManyIter(l, b);
     }
 }
