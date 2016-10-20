@@ -61,6 +61,8 @@ http://www.vecteezy.com/
 Logo Font:
 Philipp Poll's Linux Biolinum (see http://www.linuxlibertine.org/ for more)
 
+Students who helped: Austin Kemper (JHU)
+
 ## Licenses
 
 The original Go code is under a BSD-style license.
