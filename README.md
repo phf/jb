@@ -4,13 +4,19 @@
 
 Welcome to `jb`, also known as `jaybee` out in the shell.
 
-This is a port of Go's benchmarking facilities to Java. I needed it for a
-course I am scheduled to teach in Fall 2016, mostly to make it easier on
-students to get some basic performance metrics for their code.
+This is a port of
+[Go's benchmarking facilities](https://golang.org/pkg/testing/#hdr-Benchmarks)
+to Java.
+I needed `jb` for the
+[data structures course](http://www.cs.jhu.edu/~cs226/)
+I taught in Fall 2016, mostly to make it easier on students to get some basic
+performance metrics for their code.
+(The jury is still out on whether they liked it or not.)
 
 I borrowed *very* liberally from the Go original as well as from the ports
-listed below. One might say that my only accomplishment is to package things
-in a slightly more Java-like way.
+listed below.
+One might say that my only accomplishment was to package things in a slightly
+more Java-like way.
 
 (Or maybe the only *real* advantage is that I also remixed a cute logo for it?
 Bzzz! Oh, I would like to apologize for taking the whole bee metaphor a little
@@ -22,11 +28,19 @@ established Java build tools.
 
 ## Usage
 
-If `StringAppend.class` contains a bunch of benchmarks, here's how you run
-them (provided `jaybee` is suitably aliased):
+If `StringAppend.java` contains a bunch of static methods annotated with
+`@Bench`, here's how you compile it (provided `jaybee.jar` is in the current
+directory):
 
 ```
-$ jaybee StringAppend
+$ javac -classpath jaybee.jar:. StringAppend.java
+```
+
+If `StringAppend.class` contains a bunch of compiled benchmark methods, here's
+how you run them (provided `jaybee.jar` is in the current directory):
+
+```
+$ java -jar jaybee.jar StringAppend
        string	      1000	   1042721 ns/op	   2.77 MB/s	    159592 B/op
  stringBuffer	     30000	     40549 ns/op	  71.27 MB/s	      5313 B/op
 stringBuilder	     50000	     24185 ns/op	 119.50 MB/s	      1545 B/op
@@ -34,8 +48,9 @@ stringBuilder	     50000	     24185 ns/op	 119.50 MB/s	      1545 B/op
 
 You get (a) the number of times the benchmark was run, (b) the time it took
 per iteration, (c) the amount of data processed per second, and (d) the
-number of bytes allocated per iteration. (That last number can be rather
-flakey because the garbage collector doesn't seem to be overly deterministic.)
+number of bytes allocated per iteration.
+(That last number can be rather flakey because garbage collection behavior
+is not exactly deterministic.)
 
 ## Credits / Inspiration
 
