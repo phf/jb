@@ -52,4 +52,15 @@ public class BasicUsage {
         System.out.println("six");
         return null;
     }
+
+    /**
+     * Problematic: Throws an exception.
+     */
+    @Bench
+    public static void seven(Bee b) {
+        System.out.println("seven");
+        String x = null;
+        x.toString();
+    }
+
 }
