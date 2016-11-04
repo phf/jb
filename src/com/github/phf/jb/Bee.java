@@ -47,11 +47,8 @@ public final class Bee {
     private void run(Method m) {
         try {
             m.invoke(null, this);
-        } catch (IllegalAccessException e) {
-            System.err.println(e);
-        } catch (InvocationTargetException e) {
-            System.err.println(e);
-            this.throwable = e.getCause();
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            this.throwable = e;
         }
     }
 
@@ -166,6 +163,11 @@ public final class Bee {
             b.reset();
             b.start();
             b.run(m);
+            if (b.throwable != null) {
+                System.err.printf("Method %s failed!\n", m.getName());
+                b.throwable.printStackTrace(System.err);
+                break;
+            }
             b.stop();
 
             if (b.netTime >= MAX_TIME || n >= MAX_REPETITIONS) {
