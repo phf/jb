@@ -44,10 +44,10 @@ final class Result {
         String mb = "";
         if (this.p > 0) {
             double mps = this.mbPerSec();
-            mb = String.format("\t%7.2f MB/s", mps);
+            mb = String.format("\t%,11.2f MB/s", mps);
         }
 
-        return String.format("%10d\t%10d ns/op%s\t%10d B/op",
+        return String.format("%,14d\t%,14d ns/op%s\t%,14d B/op",
             this.n, ns, mb, bs);
     }
 }
