@@ -41,9 +41,9 @@ how you run them (provided `jaybee.jar` is in the current directory):
 
 ```
 $ java -jar jaybee.jar StringAppend
-       string	      1000	   1042721 ns/op	   2.77 MB/s	    159592 B/op
- stringBuffer	     30000	     40549 ns/op	  71.27 MB/s	      5313 B/op
-stringBuilder	     50000	     24185 ns/op	 119.50 MB/s	      1545 B/op
+       string	         1,000	     1,053,978 ns/op	       2.74 MB/s	       163,712 B/op
+ stringBuffer	        30,000	        41,034 ns/op	      70.43 MB/s	         5,313 B/op
+stringBuilder	        50,000	        24,796 ns/op	     116.55 MB/s	         1,545 B/op
 ```
 
 You get (a) the number of times the benchmark was run, (b) the time it took
