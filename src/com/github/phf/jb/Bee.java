@@ -44,9 +44,9 @@ public final class Bee {
      * exceptions here. The method exists mostly so that Bee can store
      * the exception that terminated a benchmark.
      */
-    private void run(Method m) {
+    private void run(Method m, Object o) {
         try {
-            m.invoke(null, this);
+            m.invoke(o, this);
         } catch (IllegalAccessException | InvocationTargetException e) {
             this.throwable = e;
         }
@@ -152,7 +152,7 @@ public final class Bee {
      * access Bee internals a lot, so it's more convenient to just put it in
      * here with the rest of the Bee.
      */
-    static Result runBenchmark(Method m) {
+    static Result runBenchmark(Method m, Object o) {
         int n = 1;
         Bee b = new Bee();
 
@@ -162,7 +162,7 @@ public final class Bee {
             b.repetitions = n;
             b.reset();
             b.start();
-            b.run(m);
+            b.run(m, o);
             if (b.throwable != null) {
                 System.err.printf("Method %s failed!\n", m.getName());
                 b.throwable.printStackTrace(System.err);

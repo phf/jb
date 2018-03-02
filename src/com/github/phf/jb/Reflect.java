@@ -72,14 +72,15 @@ final class Reflect {
             return false;
         }
 
-        // TODO debatable decision to not run instance methods as
-        // benchmarks; I cannot think of a good use for it so I'd
-        // rather restrict it for now; rethink later after we get
-        // more experience with what students do?
-        if (!Modifier.isStatic(m.getModifiers())) {
-            System.err.printf("method %s must be static\n", name);
+        // Used to be that only static methods were allowed. Switched to the
+        // opposite to make inheritance between benchmark classes work. That
+        // way we can write "interface benchmarks" that run against several
+        // implementations.
+        if (Modifier.isStatic(m.getModifiers())) {
+            System.err.printf("method %s must not be static\n", name);
             return false;
         }
+
         // we can only call public methods through reflection
         if (!Modifier.isPublic(m.getModifiers())) {
             System.err.printf("method %s must be public\n", name);
@@ -99,7 +100,7 @@ final class Reflect {
     static Method[] benchmarkMethods(Class<?> c) {
         // TODO cheaper way to sort this
         SortedMap<String, Method> methods = new TreeMap<>();
-        for (Method m: c.getDeclaredMethods()) {
+        for (Method m: c.getMethods()) { // getDeclaredMethods skips inherited
             if (validBenchmarkMethod(m)) {
                 methods.put(m.getName(), m);
             }

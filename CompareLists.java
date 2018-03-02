@@ -2,38 +2,25 @@ import com.github.phf.jb.Bench;
 import com.github.phf.jb.Bee;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * Comparing ArrayList and LinkedList. The conclusion is that LinkedList is
- * often the wrong choice if we care for performance.
+ * Comparing Java's List implementations. The conclusion is that LinkedList is
+ * often the wrong choice if we care for performance. Alternatively we could
+ * conclude that the Java folks should not be allowed to design more libraries.
  */
-public final class CompareLists {
+public abstract class CompareLists {
     private static final int SIZE = 1000;
     private static final Random r = new Random();
+    private static String t;
 
-    private CompareLists() {}
+    abstract List<String> createUnit();
 
-    private static String s;
+    // Code to benchmark, factored out for clarity.
 
-    /*
-     * Code to benchmark, factored out because we compare different
-     * container classes.
-     */
     private static void append(List<String> l) {
         for (int i = 0; i < SIZE; i++) {
             l.add(Integer.toString(i));
-        }
-    }
-
-    private static void appendMany(List<String> l, Bee b) {
-        for (int n = 0; n < b.reps(); n++) {
-            b.stop();
-            l.clear();
-            b.start();
-            append(l);
         }
     }
 
@@ -43,28 +30,10 @@ public final class CompareLists {
         }
     }
 
-    private static void prependMany(List<String> l, Bee b) {
-        for (int n = 0; n < b.reps(); n++) {
-            b.stop();
-            l.clear();
-            b.start();
-            prepend(l);
-        }
-    }
-
     private static void insertRandom(List<String> l) {
         l.add("0");
-        for (int i = 0; i < SIZE-1; i++) {
+        for (int i = 1; i < SIZE; i++) {
             l.add(r.nextInt(l.size()), Integer.toString(i));
-        }
-    }
-
-    private static void insertRandomMany(List<String> l, Bee b) {
-        for (int n = 0; n < b.reps(); n++) {
-            b.stop();
-            l.clear();
-            b.start();
-            insertRandom(l);
         }
     }
 
@@ -72,165 +41,107 @@ public final class CompareLists {
         for (int i = 0; i < SIZE-1; i++) {
             l.remove(r.nextInt(l.size()));
         }
+        l.remove(0);
     }
 
-    private static void removeRandomMany(List<String> l, Bee b) {
-        b.stop();
-        append(l);
-        List<String> backup = new ArrayList<>();
-        backup.addAll(l);
-        b.start();
+    private static void linearGet(List<String> l) {
+        for (int i = 0; i < SIZE; i++) {
+            t = l.get(i);
+        }
+    }
+
+    private static void randomGet(List<String> l) {
+        for (int i = 0; i < SIZE; i++) {
+            t = l.get(r.nextInt(SIZE));
+        }
+    }
+
+    private static void iterate(List<String> l) {
+        for (String x: l) {
+            t = x;
+        }
+    }
+
+    // Individual benchmarks, note the variety of setups necessary.
+
+    @Bench
+    public void append(Bee b) {
         for (int n = 0; n < b.reps(); n++) {
             b.stop();
-            l.clear();
-            l.addAll(backup);
+            List<String> l = this.createUnit();
             b.start();
+
+            append(l);
+        }
+    }
+
+    @Bench
+    public void prepend(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            b.stop();
+            List<String> l = this.createUnit();
+            b.start();
+
+            prepend(l);
+        }
+    }
+
+    @Bench
+    public void insertRandom(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            b.stop();
+            List<String> l = this.createUnit();
+            b.start();
+
+            insertRandom(l);
+        }
+    }
+
+    @Bench
+    public void removeRandom(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            b.stop();
+            List<String> l = this.createUnit();
+            append(l);
+            b.start();
+
             removeRandom(l);
         }
     }
 
-    private static void linearGetMany(List<String> l, Bee b) {
+    @Bench
+    public void linearGet(Bee b) {
+        b.stop();
+        List<String> l = this.createUnit();
+        append(l);
+        b.start();
+
         for (int n = 0; n < b.reps(); n++) {
-            for (int i = 0; i < SIZE; i++) {
-                s = l.get(i);
-            }
+            linearGet(l);
         }
     }
 
-    private static void randomGetMany(List<String> l, Bee b) {
+    @Bench
+    public void randomGet(Bee b) {
+        b.stop();
+        List<String> l = this.createUnit();
+        append(l);
+        b.start();
+
         for (int n = 0; n < b.reps(); n++) {
-            for (int i = 0; i < SIZE; i++) {
-                s = l.get(r.nextInt(SIZE));
-            }
+            randomGet(l);
         }
     }
 
-    private static void linearIterMany(List<String> l, Bee b) {
+    @Bench
+    public void iterate(Bee b) {
+        b.stop();
+        List<String> l = this.createUnit();
+        append(l);
+        b.start();
+
         for (int n = 0; n < b.reps(); n++) {
-            for (String x : l) {
-                s = x;
-            }
+            iterate(l);
         }
-    }
-
-    /*
-     * Individual benchmarks.
-     */
-    @Bench
-    public static void appendArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        b.start();
-        appendMany(l, b);
-    }
-
-    @Bench
-    public static void appendLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        b.start();
-        appendMany(l, b);
-    }
-
-    @Bench
-    public static void prependArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        b.start();
-        prependMany(l, b);
-    }
-
-    @Bench
-    public static void prependLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        b.start();
-        prependMany(l, b);
-    }
-
-    @Bench
-    public static void insertRandomArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        b.start();
-        insertRandomMany(l, b);
-    }
-
-    @Bench
-    public static void insertRandomLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        b.start();
-        insertRandomMany(l, b);
-    }
-
-    @Bench
-    public static void removeRandomArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        b.start();
-        removeRandomMany(l, b);
-    }
-
-    @Bench
-    public static void removeRandomLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        b.start();
-        removeRandomMany(l, b);
-    }
-
-    @Bench
-    public static void linearGetArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        append(l);
-        b.start();
-        linearGetMany(l, b);
-    }
-
-    @Bench
-    public static void linearGetLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        append(l);
-        b.start();
-        linearGetMany(l, b);
-    }
-
-    @Bench
-    public static void randomGetArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        append(l);
-        b.start();
-        randomGetMany(l, b);
-    }
-
-    @Bench
-    public static void randomGetLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        append(l);
-        b.start();
-        randomGetMany(l, b);
-    }
-
-    @Bench
-    public static void linearIterArrayList(Bee b) {
-        b.stop();
-        List<String> l = new ArrayList<>();
-        append(l);
-        b.start();
-        linearIterMany(l, b);
-    }
-
-    @Bench
-    public static void linearIterLinkedList(Bee b) {
-        b.stop();
-        List<String> l = new LinkedList<>();
-        append(l);
-        b.start();
-        linearIterMany(l, b);
     }
 }

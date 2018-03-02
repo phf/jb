@@ -11,8 +11,6 @@ public final class ArrayOps {
     private static final int SIZE = 10000;
     private static int refBytes;
 
-    private ArrayOps() {}
-
     static {
         switch (System.getProperty("sun.arch.data.model")) {
             case "32":
@@ -34,7 +32,7 @@ public final class ArrayOps {
     }
 
     @Bench
-    public static void copyManual(Bee b) {
+    public void copyManual(Bee b) {
         b.stop();
         Object[] from = new Object[SIZE];
         init(from);
@@ -49,7 +47,7 @@ public final class ArrayOps {
     }
 
     @Bench
-    public static void copyClone(Bee b) {
+    public void copyClone(Bee b) {
         b.stop();
         Object[] from = new Object[SIZE];
         init(from);
@@ -62,7 +60,7 @@ public final class ArrayOps {
     }
 
     @Bench
-    public static void copySystem(Bee b) {
+    public void copySystem(Bee b) {
         b.stop();
         Object[] from = new Object[SIZE];
         init(from);
@@ -75,7 +73,7 @@ public final class ArrayOps {
     }
 
     @Bench
-    public static void copyArrays(Bee b) {
+    public void copyArrays(Bee b) {
         b.stop();
         Object[] from = new Object[SIZE];
         init(from);
@@ -88,7 +86,7 @@ public final class ArrayOps {
     }
 
     @Bench
-    public static void fillManual(Bee b) {
+    public void fillManual(Bee b) {
         b.stop();
         Object[] to = new Object[SIZE];
         b.start();
@@ -101,7 +99,7 @@ public final class ArrayOps {
     }
 
     @Bench
-    public static void fillArrays(Bee b) {
+    public void fillArrays(Bee b) {
         b.stop();
         Object[] to = new Object[SIZE];
         b.start();

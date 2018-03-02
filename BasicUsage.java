@@ -6,17 +6,17 @@ import com.github.phf.jb.Bee;
  */
 public class BasicUsage {
     /**
-     * Incorrect: Must be static.
+     * Incorrect: Must not be static.
      */
     @Bench
-    public void one(Bee b) {
+    public static void one(Bee b) {
         System.out.println("one");
     }
 
     /**
      * Incorrect: Missing annotation.
      */
-    public static void two(Bee b) {
+    public void two(Bee b) {
         System.out.println("two");
     }
 
@@ -24,7 +24,7 @@ public class BasicUsage {
      * Correct: Annotation and proper parameter list.
      */
     @Bench
-    public static void three(Bee b) {
+    public void three(Bee b) {
         System.out.println("three");
     }
 
@@ -32,7 +32,7 @@ public class BasicUsage {
      * Incorrect: Exactly one parameter of type Bee.
      */
     @Bench
-    public static void four(Bee b, int x) {
+    public void four(Bee b, int x) {
         System.out.println("four");
     }
 
@@ -40,7 +40,7 @@ public class BasicUsage {
      * Incorrect: Exactly one parameter of type Bee.
      */
     @Bench
-    public static void five(int x) {
+    public void five(int x) {
         System.out.println("five");
     }
 
@@ -48,7 +48,7 @@ public class BasicUsage {
      * Incorrect: No return type.
      */
     @Bench
-    public static Bee six(Bee b) {
+    public Bee six(Bee b) {
         System.out.println("six");
         return null;
     }
@@ -57,10 +57,9 @@ public class BasicUsage {
      * Problematic: Throws an exception.
      */
     @Bench
-    public static void seven(Bee b) {
+    public void seven(Bee b) {
         System.out.println("seven");
         String x = null;
         x.toString();
     }
-
 }

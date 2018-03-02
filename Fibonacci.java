@@ -8,8 +8,6 @@ import com.github.phf.jb.Bee;
  * http://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go
  */
 public final class Fibonacci {
-    private Fibonacci() {}
-
     /**
      * A silly recursive Fibonacci. Of course you normally wouldn't have the
      * "unit under benchmark" in the same class as the benchmarks. But this
@@ -40,32 +38,32 @@ public final class Fibonacci {
      * be one-liners, they just happen to be short in this example.
      */
     @Bench
-    public static void fib01(Bee b) {
+    public void fib01(Bee b) {
         wrapFib(1, b);
     }
 
     @Bench
-    public static void fib02(Bee b) {
+    public void fib02(Bee b) {
         wrapFib(2, b);
     }
 
     @Bench
-    public static void fib04(Bee b) {
+    public void fib04(Bee b) {
         wrapFib(4, b);
     }
 
     @Bench
-    public static void fib10(Bee b) {
+    public void fib10(Bee b) {
         wrapFib(10, b);
     }
 
     @Bench
-    public static void fib20(Bee b) {
+    public void fib20(Bee b) {
         wrapFib(20, b);
     }
 
     @Bench
-    public static void fib40(Bee b) {
+    public void fib40(Bee b) {
         wrapFib(40, b);
     }
 }
