@@ -28,9 +28,8 @@ established Java build tools.
 
 ## Usage
 
-If `StringAppend.java` contains a bunch of static methods annotated with
-`@Bench`, here's how you compile it (provided `jaybee.jar` is in the current
-directory):
+If `StringAppend.java` contains a bunch of  methods annotated with `@Bench`,
+here's how you compile it (provided `jaybee.jar` is in the current directory):
 
 ```
 $ javac -classpath jaybee.jar:. StringAppend.java
@@ -41,9 +40,9 @@ how you run them (provided `jaybee.jar` is in the current directory):
 
 ```
 $ java -jar jaybee.jar StringAppend
-       string	         1,000	     1,053,978 ns/op	       2.74 MB/s	       163,712 B/op
- stringBuffer	        30,000	        41,034 ns/op	      70.43 MB/s	         5,313 B/op
-stringBuilder	        50,000	        24,796 ns/op	     116.55 MB/s	         1,545 B/op
+       string	         5,000	       326,858 ns/op	       8.84 MB/s	       156,993 B/op
+ stringBuffer	        50,000	        26,474 ns/op	     109.16 MB/s	        18,685 B/op
+stringBuilder	       100,000	        13,622 ns/op	     212.15 MB/s	           339 B/op
 ```
 
 You get (a) the number of times the benchmark was run, (b) the time it took
@@ -76,7 +75,11 @@ http://www.vecteezy.com/
 Logo Font:
 Philipp Poll's Linux Biolinum (see http://www.linuxlibertine.org/ for more)
 
-Students who helped: Austin Kemper (JHU)
+Students who helped:
+Austin Kemper (keeping me honest)
+
+Companies who helped:
+[SmartLogic](https://smartlogic.io/) (much needed quiet time)
 
 ## Licenses
 
