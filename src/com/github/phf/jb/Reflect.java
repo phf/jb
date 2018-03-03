@@ -31,8 +31,8 @@ final class Reflect {
         Class<?> c = null;
         try {
             URL url = FileSystems.getDefault().getPath("").toUri().toURL();
-            URLClassLoader cl = new URLClassLoader(new URL[]{url});
-            c = cl.loadClass(name);
+            URLClassLoader loader = new URLClassLoader(new URL[]{url});
+            c = loader.loadClass(name);
         } catch (ClassNotFoundException e) {
             System.err.println(e);
         } catch (MalformedURLException e) {
@@ -81,7 +81,7 @@ final class Reflect {
             return false;
         }
 
-        // we can only call public methods through reflection
+        // Reflective calls only work with public methods.
         if (!Modifier.isPublic(m.getModifiers())) {
             System.err.printf("method %s must be public\n", name);
             return false;
@@ -98,7 +98,6 @@ final class Reflect {
      * @return Array of benchmark methods or null if class has none.
      */
     static Method[] benchmarkMethods(Class<?> c) {
-        // TODO cheaper way to sort this
         SortedMap<String, Method> methods = new TreeMap<>();
         for (Method m: c.getMethods()) { // getDeclaredMethods skips inherited
             if (validBenchmarkMethod(m)) {
