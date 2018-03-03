@@ -9,7 +9,7 @@ import java.util.Random;
  * often the wrong choice if we care for performance. Alternatively we could
  * conclude that the Java folks should not be allowed to design more libraries.
  */
-public abstract class CompareLists {
+public abstract class BaseCompareLists {
     private static final int SIZE = 1000;
     private static final Random r = new Random();
     private static String t;
