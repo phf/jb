@@ -84,6 +84,24 @@ public final class BasicOps {
     }
 
     @Bench
+    public void or(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 0; i < COUNT; i++) {
+                x = y | i;
+            }
+        }
+    }
+
+    @Bench
+    public void not(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 0; i < COUNT; i++) {
+                x = ~i;
+            }
+        }
+    }
+
+    @Bench
     public void index(Bee b) {
         for (int n = 0; n < b.reps(); n++) {
             for (int i = 0; i < COUNT; i++) {
