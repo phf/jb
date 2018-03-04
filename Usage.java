@@ -4,7 +4,7 @@ import com.github.phf.jb.Bee;
 /**
  * Proper format (annotations, parameter lists, etc.) for benchmark methods.
  */
-public class BasicUsage {
+public class Usage {
     /**
      * Incorrect: Must not be static.
      */
