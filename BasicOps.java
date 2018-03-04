@@ -6,7 +6,7 @@ import com.github.phf.jb.Bee;
  * true these days is that division/modulo is a LOT slower than anything else.
  */
 public final class BasicOps {
-    private static final int COUNT = 1 << 18;
+    private static final int COUNT = 1 << 21;
     public static int x = 10, y = 20, z = 30;
     public static int[] a = new int[COUNT];
     public static boolean c = false;
