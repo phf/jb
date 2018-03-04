@@ -11,7 +11,6 @@ I needed `jb` for the
 [data structures course](http://www.cs.jhu.edu/~cs226/)
 I taught in Fall 2016, mostly to make it easier on students to get some basic
 performance metrics for their code.
-(The jury is still out on whether they liked it or not.)
 
 I borrowed *very* liberally from the Go original as well as from the ports
 listed below.
