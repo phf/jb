@@ -6,8 +6,8 @@ import java.util.Random;
 
 /**
  * Comparing Java's List implementations. The conclusion is that LinkedList is
- * often the wrong choice if we care for performance. Alternatively we could
- * conclude that the Java folks should not be allowed to design more libraries.
+ * often the wrong choice if we care for performance. (Alternatively we could
+ * conclude that the Java folks should not be allowed to design libraries.)
  */
 public abstract class BaseCompareLists {
     private static final int SIZE = 1000;
@@ -18,13 +18,13 @@ public abstract class BaseCompareLists {
 
     // Code to benchmark, factored out for clarity.
 
-    private static void append(List<String> l) {
+    private static void insertBack(List<String> l) {
         for (int i = 0; i < SIZE; i++) {
             l.add(Integer.toString(i));
         }
     }
 
-    private static void prepend(List<String> l) {
+    private static void insertFront(List<String> l) {
         for (int i = 0; i < SIZE; i++) {
             l.add(0, Integer.toString(i));
         }
@@ -37,6 +37,18 @@ public abstract class BaseCompareLists {
         }
     }
 
+    private static void removeFront(List<String> l) {
+        for (int i = 0; i < SIZE; i++) {
+            l.remove(0);
+        }
+    }
+
+    private static void removeBack(List<String> l) {
+        for (int i = 0; i < SIZE; i++) {
+            l.remove(l.size() - 1);
+        }
+    }
+
     private static void removeRandom(List<String> l) {
         for (int i = 0; i < SIZE-1; i++) {
             l.remove(r.nextInt(l.size()));
@@ -44,13 +56,13 @@ public abstract class BaseCompareLists {
         l.remove(0);
     }
 
-    private static void linearGet(List<String> l) {
+    private static void getLinear(List<String> l) {
         for (int i = 0; i < SIZE; i++) {
             t = l.get(i);
         }
     }
 
-    private static void randomGet(List<String> l) {
+    private static void getRandom(List<String> l) {
         for (int i = 0; i < SIZE; i++) {
             t = l.get(r.nextInt(SIZE));
         }
@@ -65,24 +77,24 @@ public abstract class BaseCompareLists {
     // Individual benchmarks, note the variety of setups necessary.
 
     @Bench
-    public void append(Bee b) {
+    public void insertBack(Bee b) {
         for (int n = 0; n < b.reps(); n++) {
             b.stop();
             List<String> l = this.createUnit();
             b.start();
 
-            append(l);
+            insertBack(l);
         }
     }
 
     @Bench
-    public void prepend(Bee b) {
+    public void insertFront(Bee b) {
         for (int n = 0; n < b.reps(); n++) {
             b.stop();
             List<String> l = this.createUnit();
             b.start();
 
-            prepend(l);
+            insertFront(l);
         }
     }
 
@@ -98,11 +110,50 @@ public abstract class BaseCompareLists {
     }
 
     @Bench
-    public void removeRandom(Bee b) {
+    public void removeFront(Bee b) {
+        b.stop();
+        List<String> backup = this.createUnit();
+        insertBack(backup);
+        b.start();
+
         for (int n = 0; n < b.reps(); n++) {
             b.stop();
             List<String> l = this.createUnit();
-            append(l);
+            l.addAll(backup);
+            b.start();
+
+            removeFront(l);
+        }
+    }
+
+    @Bench
+    public void removeBack(Bee b) {
+        b.stop();
+        List<String> backup = this.createUnit();
+        insertBack(backup);
+        b.start();
+
+        for (int n = 0; n < b.reps(); n++) {
+            b.stop();
+            List<String> l = this.createUnit();
+            l.addAll(backup);
+            b.start();
+
+            removeBack(l);
+        }
+    }
+
+    @Bench
+    public void removeRandom(Bee b) {
+        b.stop();
+        List<String> backup = this.createUnit();
+        insertBack(backup);
+        b.start();
+
+        for (int n = 0; n < b.reps(); n++) {
+            b.stop();
+            List<String> l = this.createUnit();
+            l.addAll(backup);
             b.start();
 
             removeRandom(l);
@@ -110,26 +161,26 @@ public abstract class BaseCompareLists {
     }
 
     @Bench
-    public void linearGet(Bee b) {
+    public void getLinear(Bee b) {
         b.stop();
         List<String> l = this.createUnit();
-        append(l);
+        insertBack(l);
         b.start();
 
         for (int n = 0; n < b.reps(); n++) {
-            linearGet(l);
+            getLinear(l);
         }
     }
 
     @Bench
-    public void randomGet(Bee b) {
+    public void getRandom(Bee b) {
         b.stop();
         List<String> l = this.createUnit();
-        append(l);
+        insertBack(l);
         b.start();
 
         for (int n = 0; n < b.reps(); n++) {
-            randomGet(l);
+            getRandom(l);
         }
     }
 
@@ -137,7 +188,7 @@ public abstract class BaseCompareLists {
     public void iterate(Bee b) {
         b.stop();
         List<String> l = this.createUnit();
-        append(l);
+        insertBack(l);
         b.start();
 
         for (int n = 0; n < b.reps(); n++) {
