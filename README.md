@@ -8,9 +8,16 @@ This is a port of
 [Go's benchmarking facilities](https://golang.org/pkg/testing/#hdr-Benchmarks)
 to Java.
 I needed `jb` for the
-[data structures course](http://www.cs.jhu.edu/~cs226/)
-I taught in Fall 2016, mostly to make it easier on students to get some basic
-performance metrics for their code.
+[data structures course](https://www.cs.jhu.edu/~phf/2016/fall/cs226/)
+I taught in [Fall 2016](https://www.cs.jhu.edu/~phf/2016/fall/cs226/), mostly
+to make it easier on students to get some basic performance metrics for their
+code.
+The tool has been reasonably well-received over the years
+([Spring 2017](https://www.cs.jhu.edu/~phf/2017/spring/cs226/),
+[Fall 2017](https://www.cs.jhu.edu/~phf/2017/fall/cs226/),
+[Spring 2018](https://www.cs.jhu.edu/~phf/2018/spring/cs226/))
+and students who have previously learned about
+[JUnit 4](https://junit.org/junit4/) seem to pick it up with ease.
 
 I borrowed *very* liberally from the Go original as well as from the ports
 listed below.
@@ -27,7 +34,7 @@ established Java build tools.
 
 ## Usage
 
-If `StringAppend.java` contains a bunch of  methods annotated with `@Bench`,
+If `StringAppend.java` contains a bunch of methods annotated with `@Bench`,
 here's how you compile it (provided `jaybee.jar` is in the current directory):
 
 ```
@@ -49,6 +56,14 @@ per iteration, (c) the amount of data processed per second, and (d) the
 number of bytes allocated per iteration.
 (That last number can be rather flakey because garbage collection behavior
 is not exactly deterministic.)
+
+## Disclaimer
+
+The measurements `jb` produces are *not* particularly accurate.
+They are, however, *accurate enough* to measure *obvious differences* in
+performance.
+(At least as long as `jb` has been used correctly that is.)
+If accuracy is what you need, please use an *actual* profiler.
 
 ## Credits / Inspiration
 
