@@ -23,7 +23,6 @@ I borrowed *very* liberally from the Go original as well as from the ports
 listed below.
 One might say that my only accomplishment was to package things in a slightly
 more Java-like way.
-
 (Or maybe the only *real* advantage is that I also remixed a cute logo for it?
 Bzzz! Oh, I would like to apologize for taking the whole bee metaphor a little
 *too* far in the source code.)
