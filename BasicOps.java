@@ -109,4 +109,40 @@ public final class BasicOps {
             }
         }
     }
+
+    @Bench
+    public void divideConstant(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 1; i < COUNT+1; i++) {
+                x = y / 1037;
+            }
+        }
+    }
+
+    @Bench
+    public void divideConstantPowerOfTwo(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 1; i < COUNT+1; i++) {
+                x = y / 1024;
+            }
+        }
+    }
+
+    @Bench
+    public void shiftRightConstant(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 1; i < COUNT+1; i++) {
+                x = y >> 7;
+            }
+        }
+    }
+
+    @Bench
+    public void shiftLeftConstant(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 1; i < COUNT+1; i++) {
+                x = y << 7;
+            }
+        }
+    }
 }
