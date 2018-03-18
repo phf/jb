@@ -64,6 +64,10 @@ performance.
 (At least as long as `jb` has been used correctly that is.)
 If accuracy is what you need, please use an *actual* profiler.
 
+## Cartoon
+
+![Bench Mark](gfx/cartoon-small.jpg)
+
 ## Credits / Inspiration
 
 Original Go Documentation:
@@ -89,7 +93,8 @@ Logo Font:
 Philipp Poll's Linux Biolinum (see http://www.linuxlibertine.org/ for more)
 
 Students who helped:
-Austin Kemper (keeping me honest)
+Austin Kemper (keeping me honest),
+Yuqi "Royce" Ma (cartoon)
 
 Companies who helped:
 [SmartLogic](https://smartlogic.io/) (much needed quiet time)
