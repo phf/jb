@@ -145,4 +145,22 @@ public final class BasicOps {
             }
         }
     }
+
+    @Bench
+    public void shiftRight(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 1; i < COUNT+1; i++) {
+                x = y >> (i & 31);
+            }
+        }
+    }
+
+    @Bench
+    public void shiftLeft(Bee b) {
+        for (int n = 0; n < b.reps(); n++) {
+            for (int i = 1; i < COUNT+1; i++) {
+                x = y << (i & 31);
+            }
+        }
+    }
 }
