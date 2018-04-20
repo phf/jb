@@ -64,6 +64,25 @@ performance.
 (At least as long as `jb` has been used correctly that is.)
 If accuracy is what you need, please use an *actual* profiler.
 
+## Frequently Asked Questions
+
+### Benchmarks Get Stuck
+
+"*One of my benchmark methods gets stuck. When I print `reps` I notice a large
+jump from 10,000 to 500,000 and the latter takes too long to be useful.*"
+
+Whatever you do between `b.stop` and `b.start` does not take **any** time as
+far as `jaybee` is concerned, but of course it takes **actual** time to do it.
+So if you do 100 ms worth of setup followed by 1 ms worth of benchmark,
+`jaybee` wants to run your benchmark 1,000 times to fill up a seconds worth of
+time. But by running it 1,000 times, it will now take 100,000 ms = 100 s just
+to do the setup!
+
+Ideally you do any setup you need only once, not on every iteration of your
+`reps` loop.
+(It would probably be even better if, like JUnit, we had a `@Before` tag for
+setup code.)
+
 ## Cartoon
 
 ![Bench Mark](gfx/cartoon-small.jpg)
@@ -94,7 +113,8 @@ Philipp Poll's Linux Biolinum (see http://www.linuxlibertine.org/ for more)
 
 Students who helped:
 Austin Kemper (keeping me honest),
-Yuqi "Royce" Ma (cartoon)
+Yuqi "Royce" Ma (cartoon),
+Brandon Lax (FAQ)
 
 Companies who helped:
 [SmartLogic](https://smartlogic.io/) (much needed quiet time)
