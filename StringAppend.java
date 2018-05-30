@@ -6,6 +6,9 @@ import com.github.phf.jb.Bee;
  * that "+" is horribly inefficient and should be used extremely sparingly.
  *
  * See https://gist.github.com/a2800276/2000141 for the original.
+ *
+ * Note that we could use "sum.setLength(0)" to avoid allocating objects over
+ * and over but the performance gain is fairly small (around 6% maybe).
  */
 public final class StringAppend {
     private static final int SIZE = 1000;
