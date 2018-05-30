@@ -7,7 +7,7 @@ jaybee:
 	$(MAKE) -C bin/
 
 examples:
-	javac -cp bin/ $(JFLAGS) *.java
+	javac -cp bin/jaybee.jar $(JFLAGS) *.java
 
 clean:
 	$(MAKE) -C bin clean
