@@ -164,7 +164,7 @@ public final class Bee {
             b.start();
             b.run(m, o);
             if (b.throwable != null) {
-                System.err.printf("Method %s failed!\n", m.getName());
+                System.err.printf("Method %s failed!%n", m.getName());
                 b.throwable.printStackTrace(System.err);
                 break;
             }

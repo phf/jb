@@ -37,16 +37,16 @@ final class Flags {
 
     private HashMap<String, Flagger> flags = new HashMap<String, Flagger>();
 
-    void string(String flag, Stringer f) {
-        this.flags.put(flag, f);
+    void string(String flag, Stringer s) {
+        this.flags.put(flag, s);
     }
 
-    void bool(String flag, Booler f) {
-        this.flags.put(flag, f);
+    void bool(String flag, Booler b) {
+        this.flags.put(flag, b);
     }
 
-    void integer(String flag, Inter f) {
-        this.flags.put(flag, f);
+    void integer(String flag, Inter i) {
+        this.flags.put(flag, i);
     }
 
     /**
@@ -65,12 +65,12 @@ final class Flags {
 
             String f = args[i].substring(1);
             if (!this.flags.containsKey(f)) {
-                System.err.printf("unknown flag -%s\n", f);
+                System.err.printf("unknown flag -%s%n", f);
                 continue;
             }
 
             if (i + 1 >= args.length) {
-                System.err.printf("flag -%s requires argument\n", f);
+                System.err.printf("flag -%s requires argument%n", f);
                 continue;
             }
 
@@ -89,7 +89,7 @@ final class Flags {
                     r.set(false);
                 } else {
                     System.err.printf(
-                        "invalid boolean %s, should be true or false\n",
+                        "invalid boolean %s, should be true or false%n",
                         d
                     );
                 }
@@ -97,7 +97,7 @@ final class Flags {
                 Inter r = (Inter) q;
                 r.set(Integer.valueOf(d));
             } else {
-                System.err.printf("unknown flagger %s\n", q);
+                System.err.printf("unknown flagger %s%n", q);
             }
         }
         String[] x = new String[out.size()];

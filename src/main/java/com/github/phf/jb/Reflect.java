@@ -56,18 +56,18 @@ final class Reflect {
 
         Class<?>[] pts = m.getParameterTypes();
         if (pts == null || pts.length != 1) {
-            System.err.printf("method %s must take 1 parameter, not %d\n",
+            System.err.printf("method %s must take 1 parameter, not %d%n",
                 name, pts.length);
             return false;
         }
         if (!pts[0].equals(Bee.class)) {
-            System.err.printf("method %s must take %s parameter, not %s\n",
+            System.err.printf("method %s must take %s parameter, not %s%n",
                 name, Bee.class, pts[0]);
             return false;
         }
 
         if (m.getReturnType() != Void.TYPE) {
-            System.err.printf("method %s must return void, not %s\n",
+            System.err.printf("method %s must return void, not %s%n",
                 name, m.getReturnType());
             return false;
         }
@@ -77,13 +77,13 @@ final class Reflect {
         // way we can write "interface benchmarks" that run against several
         // implementations.
         if (Modifier.isStatic(m.getModifiers())) {
-            System.err.printf("method %s must not be static\n", name);
+            System.err.printf("method %s must not be static%n", name);
             return false;
         }
 
         // Reflective calls only work with public methods.
         if (!Modifier.isPublic(m.getModifiers())) {
-            System.err.printf("method %s must be public\n", name);
+            System.err.printf("method %s must be public%n", name);
             return false;
         }
 

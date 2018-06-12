@@ -5,10 +5,10 @@ package com.github.phf.jb;
  * formatting code in one place.
  */
 final class Result {
-    private int n;  // Number of iterations.
-    private long t; // Total time taken.
-    private long p; // Bytes processed in duration.
-    private long m; // Bytes allocated in duration.
+    private final int n;  // Number of iterations.
+    private final long t; // Total time taken.
+    private final long p; // Bytes processed in duration.
+    private final long m; // Bytes allocated in duration.
 
     Result(int iterations, long duration, long throughput, long memory) {
         this.n = iterations;

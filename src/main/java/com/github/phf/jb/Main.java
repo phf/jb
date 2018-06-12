@@ -21,13 +21,13 @@ public final class Main {
             o = con.newInstance();
         } catch (NoSuchMethodException | InstantiationException
                 | IllegalAccessException | InvocationTargetException e) {
-            System.err.printf("cannot instantiate %s\n", c);
+            System.err.printf("cannot instantiate %s%n", c);
             return;
         }
 
         Method[] methods = Reflect.benchmarkMethods(c);
         if (methods == null) {
-            System.err.printf("no benchmark methods in %s\n", c);
+            System.err.printf("no benchmark methods in %s%n", c);
             return;
         }
 
@@ -39,7 +39,7 @@ public final class Main {
         for (Method m: methods) {
             String s = m.getName();
             Result r = Bee.runBenchmark(m, o);
-            System.out.printf("%" + longest + "s\t%s\n", s, r);
+            System.out.printf("%" + longest + "s\t%s%n", s, r);
         }
     }
 
