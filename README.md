@@ -117,7 +117,10 @@ Yuqi "Royce" Ma (cartoon),
 Brandon Lax (FAQ)
 
 Companies who helped:
-[SmartLogic](https://smartlogic.io/) (much needed quiet time)
+[SmartLogic](https://smartlogic.io/)
+(much needed quiet time),
+[BigHugeGames](https://bighugegames.com/)
+(learned [ant](https://ant.apache.org/) and [maven](https://maven.apache.org/))
 
 ## Licenses
 

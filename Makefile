@@ -1,14 +1,26 @@
-JFLAGS=-Xdiags:verbose -Xlint:all
+# If you're building on a UNIX system, this might be preferable to running
+# maven directly. You'll also get a (fake) jaybee executable this way.
 
-all: jaybee examples
+JARPATH = $(shell find -name 'jaybee-*.jar' -print)
+JARNAME = $(shell basename $(JARPATH))
+JFLAGS = -Xdiags:verbose -Xlint:all
 
-jaybee:
-	javac $(JFLAGS) -d bin/ src/com/github/phf/jb/*.java
-	$(MAKE) -C bin/
+.PHONY: maven examples clean
+
+all: maven jaybee examples
+
+maven:
+	mvn install
+
+jaybee: Executable.txt
+	cat Executable.txt >$@
+	uuencode $(JARNAME) <$(JARPATH) >>$@
+	chmod +x $@
 
 examples:
-	javac -cp bin/jaybee.jar $(JFLAGS) *.java
+	javac -cp $(JARPATH) $(JFLAGS) examples/*.java
 
 clean:
-	$(MAKE) -C bin clean
-	rm -rf *.class bin/com*
+	mvn clean
+	rm -f jaybee
+	rm -f examples/*.class
