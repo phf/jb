@@ -1,6 +1,6 @@
 # jb: Simple Go-style benchmarking for Java
 
-![J Bee](gfx/jb-small.jpg)
+![Jay Bee](gfx/jb-small.jpg)
 
 Welcome to `jb`, also known as `jaybee` out in the shell.
 
@@ -28,8 +28,24 @@ Bzzz! Oh, I would like to apologize for taking the whole bee metaphor a little
 *too* far in the source code.)
 
 **I welcome pull requests!**
-In particular, I'd love for folks with more Java experience to add support for
-established Java build tools.
+
+## Building
+
+If you want to build `jaybee` yourself, you'll first need to install
+[maven](https://maven.apache.org/).
+I actually feel a bit guilty about having switched from a hacky `Makefile` to
+an insanely huge monster of a build system, but hey, it's 2018 so let's waste
+lots of cycles and even more space to do very simple things.
+
+Once you have [maven](https://maven.apache.org/) installed go ahead and clone
+the repository.
+Then say `mvn install` and after waiting patiently for a while you'll have the
+JAR file referenced below.
+
+If you are on a UNIX system, you should be able to say `make` which will run
+`mvn install` as above before packaging the JAR into a "fake executable" called
+`jaybee` that can be used to run benchmarks more conveniently.
+(At some point I might add `jaybeecee` as well, let's see.)
 
 ## Usage
 
